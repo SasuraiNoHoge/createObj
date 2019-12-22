@@ -13,8 +13,6 @@ def outerProduct(x,y,z,xd,yd,zd):
 def vector(x1,y1,z1,x2,y2,z2,xo,yo,zo):
     return outerProduct(x1-xo,y1-yo,z1-zo,x2-xo,y2-yo,z2-zo)
 
-#sixdot2x3
-
 img = Image.open('imageLoader/circle.jpg')
 
 #実験画像
@@ -45,8 +43,8 @@ cnt = 0
 
 print("/////////////////////////////")
 
-with open("circle.obj", "w") as f:
-    f.write("circle\ng circle\n")
+with open("mytest.obj", "w") as f:
+    f.write("myCube\ng mycube\n")
 
 #頂点の座標を保存
 s = ''
@@ -61,10 +59,10 @@ for y in range(width*height):
         w = str(y%width)
         h = str((int)(y/width))
         #RGBのR値だけ取ってる
-        d = str(img_pixels[(int)(y/width),y%width][0]*-1)
+        d = str(img_pixels[(int)(y/width),y%width][0])
         #debug用
-        #d = str(0)
-        #img_pixels[(int)(y/width),y%width][0] = 0
+        d = str(0)
+        img_pixels[(int)(y/width),y%width][0] = 0
         s += v + w + ' ' + h + ' ' + d+ '\n'
         v = ''
         
@@ -74,7 +72,7 @@ for y in range(width*height):
 normalList = []
 nom = ''
 skip = 0
-with open("circle.obj", "a") as f:
+with open("mytest.obj", "a") as f:
     f.write(s)
 
 print("/////////////////////////////")
@@ -241,7 +239,7 @@ while y <= (width*height)-1:
                 
 print("/////////////////////////////")
 
-with open("circle.obj", "a") as f:
+with open("mytest.obj", "a") as f:
     f.write(nom)
     f.write(fi)
 
