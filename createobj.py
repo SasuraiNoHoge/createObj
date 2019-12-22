@@ -15,9 +15,7 @@ def vector(x1,y1,z1,x2,y2,z2,xo,yo,zo):
 
 #sixdot2x3
 
-#手の深度画像
-#img_depth = Image.open('imageLoader/test_depth.jpg')
- #皿の画像
+img = Image.open('imageLoader/circle.jpg')
 
 #実験画像
 dot_origin = Image.open('imageLoader/circle.jpg')
