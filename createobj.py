@@ -13,13 +13,13 @@ def outerProduct(x,y,z,xd,yd,zd):
 def vector(x1,y1,z1,x2,y2,z2,xo,yo,zo):
     return outerProduct(x1-xo,y1-yo,z1-zo,x2-xo,y2-yo,z2-zo)
 
-img = Image.open('imageLoader/circle.jpg')
+img = Image.open('imageLoader/circle4.png')
 
 #実験画像
-dot_origin = Image.open('imageLoader/circle.jpg')
+dot_origin = Image.open('imageLoader/circle4.png')
 
 #マスク画像
-mask = Image.open('imageLoader/circle.jpg')
+mask = Image.open('imageLoader/circle4.png')
 
 w, h = mask.size
 
@@ -59,10 +59,11 @@ for y in range(width*height):
         w = str(y%width)
         h = str((int)(y/width))
         #RGBのR値だけ取ってる
+
         d = str(img_pixels[(int)(y/width),y%width][0])
         #debug用
-        d = str(0)
-        img_pixels[(int)(y/width),y%width][0] = 0
+        #d = str(0)
+        #img_pixels[(int)(y/width),y%width][0] = 0
         s += v + w + ' ' + h + ' ' + d+ '\n'
         v = ''
         
@@ -182,21 +183,26 @@ while y <= (width*height)-1:
                         if (a,b,c) in normalList:
                             yno = normalList.index((a,b,c))
                             yno += 1
+                            #print({'a':a,'b':b,'c':c})
                         else:
                             normalList.append((a,b,c))
                             yno = len(normalList)
                             nom += 'vn '+ str(a) + ' ' + str(b) + ' ' + str(c) +'\n'
-
+                            #print({'1':y,'a':a,'b':b,'c':c})
+                            
                         a,b,c = vector(p3%width,nextRow,img_pixels[nextRow,p3%width][0],y%width,row,img_pixels[row,y%width][0],p2%width,row,img_pixels[row,p2%width][0])
 
                         #法線が存在するかの確認
                         if (a,b,c) in normalList:
                             p2no = normalList.index((a,b,c))
                             p2no += 1
+                            #print({'a':a,'b':b,'c':c})
                         else:
                             normalList.append((a,b,c))
                             p2no = len(normalList)
                             nom += 'vn '+ str(a) + ' ' + str(b) + ' ' + str(c) +'\n'
+                            print({'y':y,'p2':p2,'p3':p3,'p4':p4})
+                            print({'a':a,'b':b,'c':c})
 
                         a,b,c = vector(p4%width,nextRow,img_pixels[nextRow,p4%width][0],p2%width,row,img_pixels[row,p2%width][0],p3%width,nextRow,img_pixels[nextRow,p3%width][0])
                         
@@ -204,10 +210,12 @@ while y <= (width*height)-1:
                         if (a,b,c) in normalList:
                             p3no = normalList.index((a,b,c))
                             p3no += 1
+                            #print({'a':a,'b':b,'c':c})
                         else:
                             normalList.append((a,b,c))
                             p3no = len(normalList)
                             nom += 'vn '+ str(a) + ' ' + str(b) + ' ' + str(c) +'\n'
+                            #print({'3':y,'a':a,'b':b,'c':c})
 
                         a,b,c = vector(y%width,row,img_pixels[row,y%width][0],p3%width,nextRow,img_pixels[nextRow,p3%width][0],p4%width,nextRow,img_pixels[nextRow,p4%width][0])
                         
@@ -215,10 +223,12 @@ while y <= (width*height)-1:
                         if (a,b,c) in normalList:
                             p4no = normalList.index((a,b,c))
                             p4no += 1
+                            #print({'a':a,'b':b,'c':c})
                         else:
                             normalList.append((a,b,c))
                             p4no = len(normalList)
                             nom += 'vn '+ str(a) + ' ' + str(b) + ' ' + str(c) +'\n'
+                            #print({'4':y,'a':a,'b':b,'c':c})
 
                         v1 = vlist.index((y%width,row,img_pixels[row,y%width][0]))
                         v2 = vlist.index((p2%width,row,img_pixels[row,p2%width][0]))
@@ -228,7 +238,6 @@ while y <= (width*height)-1:
                         v2+=1
                         v3+=1
                         v4+=1
-                        #print(v1)
 
                         fi += 'f ' + str(v1) + '//'+str(yno)+' ' + str(v2) + '//'+str(p2no)+' ' + str(v3) + '//'+str(p3no)+' ' + str(v4) + '//'+str(p4no)+'\n'
                         skip = 2
